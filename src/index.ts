@@ -5,6 +5,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {simpleGit} from 'simple-git';
 
+export {ExecResult} from './exec.js';
+
 export interface MonoPubOptions {
 
   /**  Directory to work from. */
