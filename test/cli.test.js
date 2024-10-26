@@ -81,3 +81,18 @@ test('version', async() => {
   );
   assert.equal(version.code, undefined);
 });
+
+test('delete', async() => {
+  const del = await runCli(
+    '--cwd',
+    cwd,
+    '-P',
+    '-p',
+    'foo',
+    '-p',
+    'bar',
+    'delete',
+    'KEY_DOES_NOT_EXIST,NEITHER_DOES_THIS'
+  );
+  assert.equal(del.code, undefined);
+});
