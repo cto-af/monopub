@@ -11,9 +11,6 @@ importers:
       commander:
         specifier: 12.1.0
         version: 12.1.0
-      spawn-process:
-        specifier: 2.0.0
-        version: 2.0.0
     devDependencies:
       '@cto.af/eslint-config':
         specifier: 5.0.2
@@ -899,10 +896,6 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
-
-  spawn-process@2.0.0:
-    resolution: {integrity: sha512-b2zUXLUaE/dGXX1Cj3txD+a+uw0uOWUw7JwtpNKvBV65CEjaKC3hkFN1AcN4T66RQUKiM8uOuVNLr5ez7CemBQ==}
-    engines: {node: '>=18.18.0'}
 
   spdx-exceptions@2.5.0:
     resolution: {integrity: sha512-PiU42r+xO4UbUS1buo3LPJkjlO7430Xn5SVAhdpzzsPHsjbYVflnnFdATgabnLude+Cqu25p6N+g2lw/PFsa4w==}
@@ -1995,8 +1988,6 @@ snapshots:
       serialize-javascript: 6.0.2
 
   space-separated-tokens@2.0.2: {}
-
-  spawn-process@2.0.0: {}
 
   spdx-exceptions@2.5.0: {}
 
