@@ -1,0 +1,45 @@
+// Data Snap v1
+
+exports[`base`] = {
+  "data": {
+    "stdout": "Usage: monopub [options] [command]\n\nOptions:\n  --cwd \u003Cdirectory\u003E      Operate from given directory (default: cwd)\n  -h, --help             display help for command\n  -p, --packages \u003Cglob\u003E  Glob to find names of sub-package directories.  Can be\n                         specified multiple times. (default: [])\n  -P, --private          Include private packages\n  -V, --version          output the version number\n\nCommands:\n  delete \u003Cfields\u003E        Delete this set of comma-separated fields from all\n                         package files.\n  exec \u003Ccommand\u003E         Run the given command in a shell for each package\n                         file.\n  help [command]         display help for command\n  version                Update version of all sub-repos to match the root.\n                         Should be called from the npm \"version\" script.\n",
+    "stderr": "",
+    "code": "commander.helpDisplayed"
+  },
+  "meta": {
+    "expires": null
+  }
+}
+
+exports[`delete`] = {
+  "data": {
+    "stdout": "Usage: monopub delete [options] \u003Cfields\u003E\n\nDelete this set of comma-separated fields from all package files.\n\nOptions:\n  -h, --help             display help for command\n\nGlobal Options:\n  --cwd \u003Cdirectory\u003E      Operate from given directory (default: cwd)\n  -p, --packages \u003Cglob\u003E  Glob to find names of sub-package directories.  Can be\n                         specified multiple times. (default: [])\n  -P, --private          Include private packages\n  -V, --version          output the version number\n",
+    "stderr": "",
+    "code": "commander.helpDisplayed"
+  },
+  "meta": {
+    "expires": null
+  }
+}
+
+exports[`exec`] = {
+  "data": {
+    "stdout": "Usage: monopub exec [options] \u003Ccommand\u003E\n\nRun the given command in a shell for each package file.\n\nOptions:\n  -h, --help             display help for command\n\nGlobal Options:\n  --cwd \u003Cdirectory\u003E      Operate from given directory (default: cwd)\n  -p, --packages \u003Cglob\u003E  Glob to find names of sub-package directories.  Can be\n                         specified multiple times. (default: [])\n  -P, --private          Include private packages\n  -V, --version          output the version number\n",
+    "stderr": "",
+    "code": "commander.helpDisplayed"
+  },
+  "meta": {
+    "expires": null
+  }
+}
+
+exports[`version`] = {
+  "data": {
+    "stdout": "Usage: monopub version [options]\n\nUpdate version of all sub-repos to match the root.  Should be called from the\nnpm \"version\" script.\n\nOptions:\n  -h, --help             display help for command\n\nGlobal Options:\n  --cwd \u003Cdirectory\u003E      Operate from given directory (default: cwd)\n  -p, --packages \u003Cglob\u003E  Glob to find names of sub-package directories.  Can be\n                         specified multiple times. (default: [])\n  -P, --private          Include private packages\n  -V, --version          output the version number\n",
+    "stderr": "",
+    "code": "commander.helpDisplayed"
+  },
+  "meta": {
+    "expires": null
+  }
+}

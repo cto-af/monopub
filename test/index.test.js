@@ -1,8 +1,14 @@
+import {MonoRoot} from '../lib/index.js';
 import assert from 'node:assert';
-import {foo} from '../lib/index.js';
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
+import {fileURLToPath} from 'node:url';
 import test from 'node:test';
 
-test('index', () => {
-  assert.equal(foo(), 2);
+const root = fileURLToPath(new URL('../', import.meta.url));
+
+test('index', async() => {
+  const m = await new MonoRoot({cwd: root}).init();
+  assert.equal(m.name, '@cto.af/monopub');
+  assert.match(m.version, /\d+\.\d+\.\d+/);
+  assert.equal(m.private, false);
+  assert.deepEqual(m.workspaces, []);
 });

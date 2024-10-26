@@ -1,10 +1,14 @@
 {
   "name": "@cto.af/monopub",
   "version": "0.0.0",
-  "decription": "",
+  "decription": "Simplified version and publish from a monorepo",
   "main": "lib/index.js",
   "type": "module",
-  "keywords": [],
+  "keywords": [
+    "monorepo",
+    "publish",
+    "lerna"
+  ],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "repository": {
@@ -23,19 +27,27 @@
     "posttest": "npm run ts",
     "docs": "typedoc",
     "ts": "tsc",
-    "build": "npm run test && npm run lint && npm run docs && npm pack --dry-run"
+    "build": "npm run test && npm run lint && npm run docs && npm pack --dry-run",
+    "version": "package-extract -so src/version.ts && git add src/version.ts"
+  },
+  "dependencies": {
+    "commander": "12.1.0"
   },
   "devDependencies": {
     "@cto.af/eslint-config": "5.0.2",
+    "@types/node": "22.8.0",
     "c8": "10.1.2",
     "eslint-plugin-jsdoc": "50.4.3",
     "eslint-plugin-markdown": "5.1.0",
+    "package-extract": "2.3.0",
+    "simple-git": "3.27.0",
+    "snappy-snaps": "1.1.0",
     "typedoc": "0.26.10",
-    "typescript-eslint": "8.11.0",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.11.0"
   },
   "packageManager": "pnpm@9.12.2",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }
