@@ -57,7 +57,7 @@ export class PackageFile {
   /**
    * Package name. Asserts if not available.  Must call init() first.
    *
-   * @returns Package name.
+   * @type {string}
    */
   public get name(): string {
     assert(this.#json, 'Call init before using');
@@ -73,11 +73,22 @@ export class PackageFile {
     }
   }
 
+  /**
+   * Is this package private?
+   *
+   * @type {boolean}
+   * @readonly
+   */
   public get private(): boolean {
     assert(this.#json, 'Call init before using');
     return Boolean(this.#json.private);
   }
 
+  /**
+   * Current version of the package.
+   *
+   * @type {string}
+   */
   public get version(): string {
     assert(this.#json, 'Call init before using');
     assert.equal(typeof this.#json.version, 'string');
@@ -92,6 +103,13 @@ export class PackageFile {
     }
   }
 
+  /**
+   * Workspaces as defined in the package file, if you are using npm-style
+   * workspaces.
+   *
+   * @type {string[]}
+   * @readonly
+   */
   public get workspaces(): string[] {
     assert(this.#json, 'Call init before using');
     if (Array.isArray(this.#json.workspaces)) {
@@ -101,7 +119,8 @@ export class PackageFile {
   }
 
   /**
-   * Read file in preparation for further processing.
+   * Read file in preparation for further processing.  Must be called and
+   * awaited, before anything else.
    *
    * @returns This, for chaining.
    */
@@ -118,6 +137,7 @@ export class PackageFile {
    * @returns This, for chaining.
    */
   public async save(gitAdd = false): Promise<this> {
+    assert(this.#json, 'Call init before using');
     if (this.#dirty) {
       await fs.writeFile(
         this.#file,
@@ -149,6 +169,13 @@ export class PackageFile {
     return this;
   }
 
+  /**
+   * Get the set of local dependencies.  Which of the local pacakges does
+   * this package depend upon?
+   *
+   * @param locals The names of the local packages.
+   * @returns The local packages we depend on.
+   */
   public depends(locals: Set<string>): Set<string> {
     assert(this.#json, 'Call init before using');
     const ret = new Set<string>();
@@ -171,6 +198,13 @@ export class PackageFile {
     return ret;
   }
 
+  /**
+   * Execute a command in the directory for this pacakge.
+   *
+   * @param opts Options for spawn.  `{stdion: 'inherit'}` is recommended.
+   * @param command Shell command.
+   * @returns Results of execution when complete.
+   */
   public exec(opts: SpawnOptions, command: string): Promise<ExecResult> {
     return exec({
       cwd: this.opts.cwd,
@@ -180,6 +214,9 @@ export class PackageFile {
   }
 }
 
+/**
+ * Representation for the root package of the monorepo.
+ */
 export class MonoRoot extends PackageFile {
   #subPackages = new Map<string, PackageFile>();
   #localNames: string[] = [];
@@ -188,6 +225,11 @@ export class MonoRoot extends PackageFile {
     super(opts);
   }
 
+  /**
+   * All of the child packages.  Depending on opts.private, may not
+   * include private packages.
+   * @yields PackageFile.
+   */
   public *[Symbol.iterator](): MapIterator<PackageFile> {
     if (this.opts.private) {
       yield *this.#subPackages.values();
@@ -200,6 +242,12 @@ export class MonoRoot extends PackageFile {
     }
   }
 
+  /**
+   * Initialize this package, and all of the sub-packages.  Compute the
+   * dependency topology.
+   *
+   * @returns A promise that completes when all reads are done.
+   */
   public async init(): Promise<this> {
     await super.init();
 
@@ -242,6 +290,12 @@ export class MonoRoot extends PackageFile {
     return this;
   }
 
+  /**
+   * Save this package and any sub-package files, if they are dirty.
+   *
+   * @param gitAdd If true, add the changed files to the pending git commit.
+   * @returns Promise of this, for chaining.
+   */
   public async save(gitAdd = false): Promise<this> {
     await super.save(gitAdd);
     for (const p of this) {
@@ -250,6 +304,12 @@ export class MonoRoot extends PackageFile {
     return this;
   }
 
+  /**
+   * Delete the given fields from all packages.
+   *
+   * @param fields Field names to delete.
+   * @returns Promise of this, for chaining.
+   */
   public delete(fields: string[]): this {
     if (this.opts.private || !this.private) {
       super.delete(fields);
@@ -260,6 +320,9 @@ export class MonoRoot extends PackageFile {
     return this;
   }
 
+  /**
+   * Set the version of all sub-packages to the version of the root package.
+   */
   public setVersions(): void {
     const ver = this.version;
     for (const p of this) {
@@ -267,6 +330,15 @@ export class MonoRoot extends PackageFile {
     }
   }
 
+  /**
+   * Execute the given script in the directories of this package and all
+   * sub-projects.  If one script fails, execution stops.
+   *
+   * @param opts Options for exec.
+   * @param cmd Shell script to run.
+   * @returns Array of execution results.  If one execution fails, the last
+   *   result will have "ok: false".
+   */
   public async execAll(opts: SpawnOptions, cmd: string): Promise<ExecResult[]> {
     const res: ExecResult[] = [];
     if (this.opts.private || !this.private) {
