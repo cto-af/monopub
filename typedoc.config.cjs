@@ -6,7 +6,7 @@ module.exports = {
   out: 'docs',
   cleanOutputDir: true,
   sidebarLinks: {
-    GitHub: 'https://github.com/hildjj/cto-af/monopub/',
+    GitHub: 'https://github.com/cto-af/monopub/',
     Documentation: 'http://cto-af.github.io/monopub/',
   },
   navigation: {

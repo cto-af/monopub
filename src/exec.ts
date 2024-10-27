@@ -2,11 +2,23 @@ import {type SpawnOptions, spawn} from 'node:child_process';
 export type {SpawnOptions} from 'node:child_process';
 
 export interface ExecResult {
+
+  /** If stdio is not inherited, the text from stdout. */
   stdout: string;
+
+  /** If stdio is not inherited, the text from stderr. */
   stderr: string;
+
+  /** Was the execution successful? */
   ok: boolean;
+
+  /** Exit code, if the execution completed normally. */
   code?: number | null;
+
+  /** Signal name, if the process was interrupted. */
   signal?: string | null;
+
+  /** Error, if the process couldn't be launched (for example). */
   error?: Error | undefined;
 }
 
