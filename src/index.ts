@@ -2,6 +2,7 @@
 import {type ExecResult, type SpawnOptions, exec} from './exec.js';
 import assert from 'node:assert';
 import fs from 'node:fs/promises';
+import {parse} from 'yaml';
 import path from 'node:path';
 import {simpleGit} from 'simple-git';
 
@@ -58,19 +59,12 @@ export class PackageFile {
    * Package name. Asserts if not available.  Must call init() first.
    *
    * @type {string}
+   * @readonly
    */
   public get name(): string {
     assert(this.#json, 'Call init before using');
     assert.equal(typeof this.#json.name, 'string');
     return this.#json.name as string;
-  }
-
-  public set name(nm: string) {
-    assert(this.#json, 'Call init before using');
-    if (nm !== this.#json.name) {
-      this.#json.name = nm;
-      this.#dirty = true;
-    }
   }
 
   /**
@@ -231,13 +225,11 @@ export class MonoRoot extends PackageFile {
    * @yields PackageFile.
    */
   public *[Symbol.iterator](): MapIterator<PackageFile> {
-    if (this.opts.private) {
-      yield *this.#subPackages.values();
-    } else {
-      for (const v of this.#subPackages.values()) {
-        if (!v.private) {
-          yield v;
-        }
+    for (const n of this.#localNames) {
+      const s = this.#subPackages.get(n);
+      assert(s);
+      if (this.opts.private || !s.private) {
+        yield s;
       }
     }
   }
@@ -251,10 +243,12 @@ export class MonoRoot extends PackageFile {
   public async init(): Promise<this> {
     await super.init();
 
+    const pnpmPkgs = await this.#pnpmPackages();
     const subDirs = new Set<string>();
     const workspaces = [
-      ...(this.opts.packages ?? []),
       ...this.workspaces,
+      ...pnpmPkgs,
+      ...(this.opts.packages ?? []),
     ];
     for (const w of workspaces) {
       // eslint-disable-next-line n/no-unsupported-features/node-builtins
@@ -263,7 +257,8 @@ export class MonoRoot extends PackageFile {
       }
     }
 
-    const locals = new Set<string>();
+    this.#subPackages.set(this.name, this);
+    const locals = new Set<string>([this.name]);
     for (const cwd of subDirs) {
       const m = await new PackageFile({cwd}).init();
       this.#subPackages.set(m.name, m);
@@ -290,6 +285,25 @@ export class MonoRoot extends PackageFile {
     return this;
   }
 
+  async #pnpmPackages(): Promise<string[]> {
+    try {
+      const str = await fs.readFile(
+        path.join(this.opts.cwd, 'pnpm-workspace.yaml'),
+        'utf8'
+      );
+      const pwy = parse(str);
+      if (Array.isArray(pwy.packages)) {
+        return pwy.packages;
+      }
+    } catch (e) {
+      const err = e as NodeJS.ErrnoException;
+      if (err.code !== 'ENOENT') {
+        throw e;
+      }
+    }
+    return [];
+  }
+
   /**
    * Save this package and any sub-package files, if they are dirty.
    *
@@ -297,9 +311,11 @@ export class MonoRoot extends PackageFile {
    * @returns Promise of this, for chaining.
    */
   public async save(gitAdd = false): Promise<this> {
-    await super.save(gitAdd);
+    super.save(gitAdd);
     for (const p of this) {
-      await p.save(gitAdd);
+      if (p !== this) {
+        await p.save(gitAdd);
+      }
     }
     return this;
   }
@@ -311,11 +327,11 @@ export class MonoRoot extends PackageFile {
    * @returns Promise of this, for chaining.
    */
   public delete(fields: string[]): this {
-    if (this.opts.private || !this.private) {
-      super.delete(fields);
-    }
+    super.delete(fields);
     for (const p of this) {
-      p.delete(fields);
+      if (p !== this) {
+        p.delete(fields);
+      }
     }
     return this;
   }
@@ -326,7 +342,9 @@ export class MonoRoot extends PackageFile {
   public setVersions(): void {
     const ver = this.version;
     for (const p of this) {
-      p.version = ver;
+      if (p !== this) {
+        p.version = ver;
+      }
     }
   }
 
@@ -341,13 +359,6 @@ export class MonoRoot extends PackageFile {
    */
   public async execAll(opts: SpawnOptions, cmd: string): Promise<ExecResult[]> {
     const res: ExecResult[] = [];
-    if (this.opts.private || !this.private) {
-      const e = await super.exec(opts, cmd);
-      res.push(e);
-      if (!e.ok) {
-        return res;
-      }
-    }
     for (const p of this) {
       const e = await p.exec(opts, cmd);
       res.push(e);
@@ -356,5 +367,9 @@ export class MonoRoot extends PackageFile {
       }
     }
     return res;
+  }
+
+  public order(): string[] {
+    return [...[...this].map(p => p.name)];
   }
 }

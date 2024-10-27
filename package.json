@@ -25,6 +25,7 @@
   "scripts": {
     "clean": "rm -rf coverage docs lib",
     "lint": "eslint .",
+    "snaps": "UPDATE_SNAPSHOT=1 node --test test/cli.test.js",
     "pretest": "tsc --inlineSourceMap",
     "test": "c8 node --test",
     "posttest": "npm run ts",
@@ -34,7 +35,8 @@
     "version": "package-extract -so src/version.ts && git add src/version.ts"
   },
   "dependencies": {
-    "commander": "12.1.0"
+    "commander": "12.1.0",
+    "yaml": "2.6.0"
   },
   "devDependencies": {
     "@cto.af/eslint-config": "5.0.2",

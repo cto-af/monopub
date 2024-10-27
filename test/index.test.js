@@ -8,9 +8,12 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 test('index', async() => {
   const m = await new MonoRoot({cwd: root}).init();
   assert.equal(m.name, '@cto.af/monopub');
-  m.name = '@cto.af/monopub';
-  assert.equal(m.name, '@cto.af/monopub');
-  assert.match(m.version, /\d+\.\d+\.\d+/);
+  const ver = m.version;
+  assert.match(ver, /\d+\.\d+\.\d+/);
+  m.version = 'foo';
+  assert.equal(m.version, 'foo');
+  m.version = ver;
   assert.equal(m.private, false);
   assert.deepEqual(m.workspaces, []);
+  await m.save(false);
 });
