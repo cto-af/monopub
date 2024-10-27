@@ -4,6 +4,9 @@
   "decription": "Simplified version and publish from a monorepo",
   "main": "lib/index.js",
   "type": "module",
+  "bin": {
+    "monopub": "bin/monopub.js"
+  },
   "keywords": [
     "monorepo",
     "publish",
