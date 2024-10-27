@@ -72,5 +72,19 @@ export async function cli(
       }
     });
 
+  program
+    .command('order')
+    .description('Output the order in which packages will be processed.')
+    .action(async(_opts, p) => {
+      const opts = p.optsWithGlobals();
+      const m = await new MonoRoot(opts).init();
+      for (const s of m.order()) {
+        // @ts-expect-error Internals
+        program._outputConfiguration.writeOut(s);
+        // @ts-expect-error Internals
+        program._outputConfiguration.writeOut('\n');
+      }
+    });
+
   await program.parseAsync(args);
 }

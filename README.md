@@ -46,6 +46,7 @@ Commands:
   exec <command>         Run the given command in a shell for each package
                          file.
   help [command]         display help for command
+  order                  Output the order in which packages will be processed.
   version                Update version of all sub-repos to match the root.
                          Should be called from the npm "version" script.
 ```
@@ -74,6 +75,24 @@ Global Options:
 Usage: monopub exec [options] <command>
 
 Run the given command in a shell for each package file.
+
+Options:
+  -h, --help             display help for command
+
+Global Options:
+  --cwd <directory>      Operate from given directory (default: cwd)
+  -p, --packages <glob>  Glob to find names of sub-package directories.  Can be
+                         specified multiple times. (default: [])
+  -P, --private          Include private packages
+  -V, --version          output the version number
+```
+
+### order
+
+```
+Usage: monopub order [options]
+
+Output the order in which packages will be processed.
 
 Options:
   -h, --help             display help for command

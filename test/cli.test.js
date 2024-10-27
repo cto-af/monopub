@@ -41,10 +41,6 @@ test('exec', async() => {
     '--cwd',
     cwd,
     '-P',
-    '-p',
-    'foo',
-    '-p',
-    'bar',
     'exec',
     'exit 0'
   );
@@ -54,10 +50,6 @@ test('exec', async() => {
     '--cwd',
     cwd,
     '-P',
-    '-p',
-    'foo',
-    '-p',
-    'bar',
     'exec',
     'exit 1'
   );
@@ -73,10 +65,6 @@ test('version', async() => {
     '--cwd',
     cwd,
     '-P',
-    '-p',
-    'foo',
-    '-p',
-    'bar',
     'version'
   );
   assert.equal(version.code, undefined);
@@ -87,12 +75,21 @@ test('delete', async() => {
     '--cwd',
     cwd,
     '-P',
-    '-p',
-    'foo',
-    '-p',
-    'bar',
     'delete',
     'KEY_DOES_NOT_EXIST,NEITHER_DOES_THIS'
   );
   assert.equal(del.code, undefined);
+});
+
+test('order', async() => {
+  const order = await runCli(
+    '--cwd',
+    cwd,
+    '-P',
+    '-p',
+    'baz',
+    'order'
+  );
+  assert.equal(order.code, undefined);
+  assert.equal(order.stdout, 'fixtures\nfoo\nbar\nbaz\n');
 });
