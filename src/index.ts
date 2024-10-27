@@ -316,9 +316,10 @@ export class MonoRoot extends PackageFile {
    * @returns Promise of this, for chaining.
    */
   public async save(gitAdd = false): Promise<this> {
-    super.save(gitAdd);
     for (const p of this) {
-      if (p !== this) {
+      if (p === this) {
+        super.save(gitAdd);
+      } else {
         await p.save(gitAdd);
       }
     }
@@ -332,9 +333,10 @@ export class MonoRoot extends PackageFile {
    * @returns Promise of this, for chaining.
    */
   public delete(fields: string[]): this {
-    super.delete(fields);
     for (const p of this) {
-      if (p !== this) {
+      if (p === this) {
+        super.delete(fields);
+      } else {
         p.delete(fields);
       }
     }
