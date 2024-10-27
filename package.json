@@ -28,6 +28,7 @@
     "snaps": "UPDATE_SNAPSHOT=1 node --test test/cli.test.js",
     "pretest": "tsc --inlineSourceMap",
     "test": "c8 node --test",
+    "test:versions": "nve --continue --arch x64 --parallel 18,20,22,23 node --test --test-reporter=dot",
     "posttest": "npm run ts",
     "docs": "typedoc",
     "ts": "tsc",
@@ -36,6 +37,7 @@
   },
   "dependencies": {
     "commander": "12.1.0",
+    "fast-glob": "3.3.2",
     "yaml": "2.6.0"
   },
   "devDependencies": {
@@ -53,6 +55,6 @@
   },
   "packageManager": "pnpm@9.12.2",
   "engines": {
-    "node": ">=22"
+    "node": ">=18"
   }
 }
