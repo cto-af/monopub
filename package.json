@@ -38,6 +38,7 @@
   "dependencies": {
     "commander": "12.1.0",
     "fast-glob": "3.3.2",
+    "simple-git": "3.27.0",
     "yaml": "2.6.0"
   },
   "devDependencies": {
@@ -47,7 +48,6 @@
     "eslint-plugin-jsdoc": "50.4.3",
     "eslint-plugin-markdown": "5.1.0",
     "package-extract": "2.3.0",
-    "simple-git": "3.27.0",
     "snappy-snaps": "1.1.0",
     "typedoc": "0.26.10",
     "typescript": "5.6.3",
