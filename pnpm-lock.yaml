@@ -11,6 +11,9 @@ importers:
       commander:
         specifier: 12.1.0
         version: 12.1.0
+      fast-glob:
+        specifier: 3.3.2
+        version: 3.3.2
       yaml:
         specifier: 2.6.0
         version: 2.6.0

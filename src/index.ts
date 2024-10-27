@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import {type ExecResult, type SpawnOptions, exec} from './exec.js';
+import FastGlob from 'fast-glob';
 import assert from 'node:assert';
 import fs from 'node:fs/promises';
 import {parse} from 'yaml';
@@ -251,9 +252,13 @@ export class MonoRoot extends PackageFile {
       ...(this.opts.packages ?? []),
     ];
     for (const w of workspaces) {
-      // eslint-disable-next-line n/no-unsupported-features/node-builtins
-      for await (const dir of fs.glob(w, {cwd: this.opts.cwd})) {
-        subDirs.add(path.resolve(this.opts.cwd, dir));
+      for (const dir of await FastGlob.glob(w, {
+        cwd: this.opts.cwd,
+        absolute: true,
+        markDirectories: true,
+        onlyFiles: false,
+      })) {
+        subDirs.add(dir);
       }
     }
 

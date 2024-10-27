@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import {exec} from '../lib/exec.js';
+// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import test from 'node:test';
 
 test('exec', async() => {
