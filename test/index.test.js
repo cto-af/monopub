@@ -10,7 +10,7 @@ test('index', async() => {
   const m = await new MonoRoot({cwd: root}).init();
   assert.equal(m.name, '@cto.af/monopub');
   const ver = m.version;
-  assert.match(ver, /\d+\.\d+\.\d+/);
+  assert.match(ver, /^\d+\.\d+\.\d+$/);
   m.version = 'foo';
   assert.equal(m.version, 'foo');
   m.version = ver;
