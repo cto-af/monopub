@@ -1,6 +1,6 @@
 {
   "name": "@cto.af/monopub",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "decription": "Simplified version and publish from a monorepo",
   "main": "lib/index.js",
   "type": "module",
