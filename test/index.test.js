@@ -1,7 +1,6 @@
 import {MonoRoot} from '../lib/index.js';
 import assert from 'node:assert';
 import {fileURLToPath} from 'node:url';
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import test from 'node:test';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
