@@ -2,7 +2,6 @@ import assert from 'node:assert';
 import {cli} from '../lib/cli.js';
 import {fileURLToPath} from 'node:url';
 import snap from 'snappy-snaps';
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
 import test from 'node:test';
 
 const bin = fileURLToPath(new URL('../bin/monopub.js', import.meta.url));
