@@ -125,6 +125,30 @@ export class PackageFile {
     return this;
   }
 
+  public setLocalDependencyVersions(locals: Set<string>, ver: string): void {
+    assert(this.#json, 'Call init before using');
+
+    if (this.#json.dependencies &&
+      typeof this.#json.dependencies === 'object') {
+      for (const d of Object.keys(this.#json.dependencies)) {
+        if (locals.has(d) && (this.#json.dependencies[d] !== ver)) {
+          this.#json.dependencies[d] = ver;
+          this.#dirty = true;
+        }
+      }
+    }
+
+    if (this.#json.devDependencies &&
+        typeof this.#json.devDependencies === 'object') {
+      for (const d of Object.keys(this.#json.devDependencies)) {
+        if (locals.has(d) && (this.#json.devDependencies[d] !== ver)) {
+          this.#json.devDependencies[d] = ver;
+          this.#dirty = true;
+        }
+      }
+    }
+  }
+
   /**
    * Save the file if it is dirty.
    *
@@ -348,9 +372,11 @@ export class MonoRoot extends PackageFile {
    */
   public setVersions(): void {
     const ver = this.version;
+    const locals = new Set(this.#localNames);
     for (const p of this) {
       if (p !== this) {
         p.version = ver;
+        p.setLocalDependencyVersions(locals, ver);
       }
     }
   }
