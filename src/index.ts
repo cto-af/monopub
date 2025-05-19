@@ -35,6 +35,9 @@ interface PackageJSON {
   devDependencies?: {
     [pkg: string]: string;
   };
+  peerDependencies?: {
+    [pkg: string]: string;
+  };
   workspaces?: string[];
   [key: string]: unknown;
 }
@@ -143,6 +146,16 @@ export class PackageFile {
       for (const d of Object.keys(this.#json.devDependencies)) {
         if (locals.has(d) && (this.#json.devDependencies[d] !== ver)) {
           this.#json.devDependencies[d] = ver;
+          this.#dirty = true;
+        }
+      }
+    }
+
+    if (this.#json.peerDependencies &&
+        typeof this.#json.peerDependencies === 'object') {
+      for (const d of Object.keys(this.#json.peerDependencies)) {
+        if (locals.has(d) && (this.#json.peerDependencies[d] !== ver)) {
+          this.#json.peerDependencies[d] = ver;
           this.#dirty = true;
         }
       }
