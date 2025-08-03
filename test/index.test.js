@@ -5,7 +5,7 @@ import test from 'node:test';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
-test('index', async() => {
+test('index', async () => {
   const m = await new MonoRoot({cwd: root}).init();
   assert.equal(m.name, '@cto.af/monopub');
   const ver = m.version;
