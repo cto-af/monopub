@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import {exec} from '../lib/exec.js';
 import test from 'node:test';
 
-test('exec', async() => {
+test('exec', async () => {
   const good = await exec({shell: true}, 'echo foo');
   assert.deepEqual(good, {
     stdout: 'foo\n',

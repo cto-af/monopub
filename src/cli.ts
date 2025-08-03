@@ -43,7 +43,7 @@ export async function cli(
   program
     .command('version')
     .description('Update version of all sub-repos to match the root.  Should be called from the npm "version" script.')
-    .action(async(_opts, p) => {
+    .action(async (_opts, p) => {
       const opts = p.optsWithGlobals();
       const m = await new MonoRoot(opts).init();
       m.setVersions();
@@ -53,7 +53,7 @@ export async function cli(
   program
     .command('delete <fields>')
     .description('Delete this set of comma-separated fields from all package files.')
-    .action(async(fields, _opts, p) => {
+    .action(async (fields, _opts, p) => {
       const opts = p.optsWithGlobals();
       const m = await new MonoRoot(opts).init();
       m.delete(fields.split(','));
@@ -63,7 +63,7 @@ export async function cli(
   program
     .command('exec <command>')
     .description('Run the given command in a shell for each package file.')
-    .action(async(cmd, _opts, p) => {
+    .action(async (cmd, _opts, p) => {
       const opts = p.optsWithGlobals();
       const m = await new MonoRoot(opts).init();
       const results = await m.execAll({stdio: 'inherit'}, cmd);
@@ -75,7 +75,7 @@ export async function cli(
   program
     .command('order')
     .description('Output the order in which packages will be processed.')
-    .action(async(_opts, p) => {
+    .action(async (_opts, p) => {
       const opts = p.optsWithGlobals();
       const m = await new MonoRoot(opts).init();
       for (const s of m.order()) {

@@ -22,7 +22,7 @@ async function runCli(...args) {
   return {stdout, stderr, code: error?.code};
 }
 
-test('help', async() => {
+test('help', async () => {
   const base = await runCli('-h');
   assert.deepEqual(base, await snap('base', base));
 
@@ -36,7 +36,7 @@ test('help', async() => {
   assert.deepEqual(version, await snap('version', version));
 });
 
-test('exec', async() => {
+test('exec', async () => {
   const fixtures = await runCli(
     '--cwd',
     cwd,
@@ -60,7 +60,7 @@ test('exec', async() => {
   });
 });
 
-test('version', async() => {
+test('version', async () => {
   const version = await runCli(
     '--cwd',
     cwd,
@@ -70,7 +70,7 @@ test('version', async() => {
   assert.equal(version.code, undefined);
 });
 
-test('delete', async() => {
+test('delete', async () => {
   const del = await runCli(
     '--cwd',
     cwd,
@@ -81,7 +81,7 @@ test('delete', async() => {
   assert.equal(del.code, undefined);
 });
 
-test('order', async() => {
+test('order', async () => {
   const order = await runCli(
     '--cwd',
     cwd,
