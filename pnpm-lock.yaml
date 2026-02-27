@@ -46,8 +46,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(eslint@10.0.2)
       package-extract:
-        specifier: 3.1.4
-        version: 3.1.4
+        specifier: 3.1.5
+        version: 3.1.5
       snappy-snaps:
         specifier: 1.1.0
         version: 1.1.0
@@ -910,8 +910,8 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  package-extract@3.1.4:
-    resolution: {integrity: sha512-7mCupiJ0QV9hf0Ll//MxbN20vHvoofdR3AdQnf4pbcCn1VkA5NHawGDqLdk5QiUoR0t0/XvXwxye4Eh1cG+c2g==}
+  package-extract@3.1.5:
+    resolution: {integrity: sha512-Lo1kJZlACEkm7wd/a0H7F1b4aMNgHz9ZT/NEMYDBm25AlK5mp1keYKj2Xfx+UCNjlUFzeXEUbnT8+1a029lDqQ==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -2260,7 +2260,7 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  package-extract@3.1.4:
+  package-extract@3.1.5:
     dependencies:
       commander: 14.0.3
       semver: 7.7.4

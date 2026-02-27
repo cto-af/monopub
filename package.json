@@ -53,7 +53,7 @@
     "eslint": "10.0.2",
     "eslint-plugin-jsdoc": "62.7.1",
     "eslint-plugin-markdown": "5.1.0",
-    "package-extract": "3.1.4",
+    "package-extract": "3.1.5",
     "snappy-snaps": "1.1.0",
     "typedoc": "0.28.17",
     "typescript": "5.9.3",
