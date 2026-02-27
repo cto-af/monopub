@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     strategy:
       matrix:
         node-version: [20, 22, 24, 25]
