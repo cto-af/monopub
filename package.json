@@ -40,29 +40,30 @@
     "version": "package-extract -so src/version.ts && git add src/version.ts"
   },
   "dependencies": {
-    "commander": "14.0.3",
-    "fast-glob": "3.3.3",
-    "simple-git": "3.32.3",
-    "yaml": "2.8.2"
+    "commander": "~14.0.3",
+    "fast-glob": "~3.3.3",
+    "simple-git": "~3.33.0",
+    "yaml": "~2.8.2"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "6.2.4",
-    "@eslint/markdown": "7.5.1",
-    "@types/node": "25.3.2",
-    "c8": "11.0.0",
-    "eslint": "10.0.2",
-    "eslint-plugin-jsdoc": "62.7.1",
-    "eslint-plugin-markdown": "5.1.0",
-    "package-extract": "3.1.5",
-    "snappy-snaps": "1.1.0",
-    "typedoc": "0.28.17",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.56.1"
+    "@cto.af/eslint-config": "^6.2.5",
+    "@eslint/markdown": "^7.5.1",
+    "@types/node": "^25.5.0",
+    "c8": "^11.0.0",
+    "eslint": "^10.0.3",
+    "eslint-plugin-jsdoc": "^62.8.0",
+    "eslint-plugin-markdown": "^5.1.0",
+    "package-extract": "^3.1.6",
+    "snappy-snaps": "^1.1.0",
+    "superc8": "^12.3.1",
+    "typedoc": "^0.28.17",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
   },
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@10.32.1",
   "pnpm": {
     "overrides": {
-      "c8@11.0.0>yargs": "18.0.0"
+      "snappy-snaps@1.1.0>serialize-javascript": "^7.0.4"
     }
   },
   "engines": {
