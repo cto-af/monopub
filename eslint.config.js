@@ -1,3 +1,4 @@
+import {defineConfig, globalIgnores} from 'eslint/config';
 import es6 from '@cto.af/eslint-config/es6.js';
 import jsdoc from '@cto.af/eslint-config/jsdoc.js';
 import jts from '@cto.af/eslint-config/jsdoc_ts.js';
@@ -5,16 +6,12 @@ import markdown from '@cto.af/eslint-config/markdown.js';
 import mod from '@cto.af/eslint-config/module.js';
 import ts from '@cto.af/eslint-config/ts.js';
 
-export default [
-  {
-    ignores: [
-      'lib/**',
-    ],
-  },
-  ...es6,
-  ...mod,
-  ...ts,
-  ...jsdoc,
-  ...jts,
-  ...markdown,
-];
+export default defineConfig(
+  globalIgnores(['lib/**']),
+  es6,
+  mod,
+  ts,
+  jsdoc,
+  jts,
+  markdown
+);
