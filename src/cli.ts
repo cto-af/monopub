@@ -1,7 +1,7 @@
 import {Command, Option, type OutputConfiguration} from 'commander';
 import {MonoRoot} from './index.js';
 import path from 'node:path';
-import {version} from './version.js';
+import pkg from '../package.json' with {type: 'json'};
 
 function push(p: string, prev: string[] = []): string[] {
   prev.push(p);
@@ -33,7 +33,7 @@ export async function cli(
         .default(process.cwd(), 'cwd')
         .argParser(val => path.resolve(process.cwd(), val))
     )
-    .version(version)
+    .version(pkg.version)
     .configureHelp({
       showGlobalOptions: true,
       sortOptions: true,

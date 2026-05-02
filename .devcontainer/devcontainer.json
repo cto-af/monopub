@@ -2,9 +2,15 @@
   "name": "Node.js",
   "image": "mcr.microsoft.com/devcontainers/javascript-node",
   "customizations": {
+    "settings": {
+      "js/ts.experimental.useTsgo": true,
+      "typescript.native-preview.tsdk": "/workspaces/monopub/node_modules/@typescript/native-preview"
+    },
     "vscode": {
       "extensions": [
-        "editorconfig.editorconfig"
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "typescriptteam.native-preview"
       ]
     }
   },

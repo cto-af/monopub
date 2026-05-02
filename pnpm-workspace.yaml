@@ -1,0 +1,2 @@
+overrides:
+  snappy-snaps@1.1.0>serialize-javascript: ^7.0.5
