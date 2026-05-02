@@ -8,7 +8,7 @@
     "monopub": "bin/monopub.js"
   },
   "files": [
-    "bin",
+    "bin/",
     "lib/"
   ],
   "keywords": [
@@ -30,43 +30,34 @@
     "clean": "rm -rf coverage docs lib",
     "lint": "eslint .",
     "snaps": "UPDATE_SNAPSHOT=1 node --test test/cli.test.js",
-    "pretest": "tsc --inlineSourceMap",
+    "pretest": "npm run ts -- --inlineSourceMap",
     "test": "c8 node --test",
     "test:versions": "nve --continue --arch x64 --parallel 18,20,22,23 node --test --test-reporter=dot",
     "posttest": "npm run ts",
     "docs": "typedoc",
-    "ts": "tsc",
-    "build": "npm run test && npm run lint && npm run docs && npm pack --dry-run",
-    "version": "package-extract -so src/version.ts && git add src/version.ts"
+    "ts": "tsgo",
+    "build": "npm run test && npm run lint && npm run docs && npm pack --dry-run"
   },
   "dependencies": {
     "commander": "~14.0.3",
     "fast-glob": "~3.3.3",
     "simple-git": "~3.36.0",
-    "yaml": "~2.8.3"
+    "yaml": "~2.8.4"
   },
   "devDependencies": {
-    "@cto.af/eslint-config": "^6.2.8",
+    "@cto.af/eslint-config": "^7.0.1",
     "@eslint/markdown": "^8.0.1",
     "@types/node": "^25.6.0",
-    "c8": "^11.0.0",
-    "eslint": "^10.2.0",
+    "@typescript/native-preview": "7.0.0-dev.20260502.1",
+    "eslint": "^10.3.0",
     "eslint-plugin-jsdoc": "^62.9.0",
-    "eslint-plugin-markdown": "^5.1.0",
-    "package-extract": "^3.1.6",
     "snappy-snaps": "^1.1.0",
     "superc8": "^12.3.1",
     "typedoc": "^0.28.19",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.2"
+    "typescript-eslint": "^8.59.1"
   },
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "snappy-snaps@1.1.0>serialize-javascript": "^7.0.4"
-    }
-  },
+  "packageManager": "pnpm@11.0.3",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
