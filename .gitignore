@@ -1,4 +1,5 @@
 .pnpm-store/
+.vscode/
 coverage/
 docs/
 lib/
