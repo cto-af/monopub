@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from 'node:assert/strict';
 import {exec} from '../lib/exec.js';
 import test from 'node:test';
 

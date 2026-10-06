@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import {type ExecResult, type SpawnOptions, exec} from './exec.js';
 import FastGlob from 'fast-glob';
-import assert from 'node:assert';
+import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {parse} from 'yaml';
 import path from 'node:path';

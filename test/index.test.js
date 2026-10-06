@@ -1,5 +1,5 @@
 import {MonoRoot} from '../lib/index.js';
-import assert from 'node:assert';
+import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import test from 'node:test';
 
