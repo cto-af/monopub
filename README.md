@@ -29,7 +29,7 @@ npm install @cto.af/monopub
 
 ## CLI
 
-```
+```txt
 Usage: monopub [options] [command]
 
 Options:
@@ -53,7 +53,7 @@ Commands:
 
 ### delete
 
-```
+```txt
 Usage: monopub delete [options] <fields>
 
 Delete this set of comma-separated fields from all package files.
@@ -71,7 +71,7 @@ Global Options:
 
 ### exec
 
-```
+```txt
 Usage: monopub exec [options] <command>
 
 Run the given command in a shell for each package file.
@@ -89,7 +89,7 @@ Global Options:
 
 ### order
 
-```
+```txt
 Usage: monopub order [options]
 
 Output the order in which packages will be processed.
@@ -107,7 +107,7 @@ Global Options:
 
 ### version
 
-```
+```txt
 Usage: monopub version [options]
 
 Update version of all sub-repos to match the root.  Should be called from the

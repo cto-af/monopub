@@ -32,8 +32,7 @@ export interface ExecResult {
  */
 export function exec(
   opts: SpawnOptions,
-  cmd:
-  string,
+  cmd: string,
   ...args: string[]
 ): Promise<ExecResult> {
   return new Promise(resolve => {
